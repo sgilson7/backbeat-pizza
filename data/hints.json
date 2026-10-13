@@ -2,14 +2,14 @@
   "_about": "What a drummer says after his riff. The core picks the list from the verdict, the level's clarity and the count, then one line from it. {item} is the first wrong thing on the pizza, {count} a number the rule decides.",
   "perfect": [
     "Tubular. That pie hits like a double kick on the one. Stoked, little dude.",
-    "Righteous. Every slice sits in the pocket. You nailed my order, compadre.",
+    "Righteous. Every slice sits in the pocket. That's my order exactly, compadre.",
     "Radical. That pizza is pure groove. I'm rocking out till the encore.",
     "Most excellent. That's the pie I hear in my dreams, man."
   ],
   "close_one": [
     "Gnarly start, little dude. Nothing bogus on there, but it's {count} topping short of a full groove.",
-    "Tasty, man. Everything on it rules. Lay {count} more topping on and we're golden.",
-    "Sweet licks, bro. Keep it all and add {count} more topping."
+    "Tasty, man. Everything on it rules. Add {count} more topping and we're golden.",
+    "Sweet beat, bro. Keep it all and add {count} more topping."
   ],
   "close_many": [
     "Smooth, bro. Nothing bogus on there, but I'm still waiting on {count} more toppings.",
@@ -35,7 +35,7 @@
   "miss_counted_one": [
     "Harsh, man. {count} thing on this pie is bogus. I'm not saying which.",
     "Close to the pocket, dude, but {count} thing on there is off the beat.",
-    "Eh, bro. Pull {count} wrong thing off and we'll talk."
+    "Eh, bro. Take away {count} wrong thing and we'll talk."
   ],
   "miss_counted_many": [
     "Way off the beat, bro. {count} things on here gotta go.",

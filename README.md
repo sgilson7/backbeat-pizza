@@ -22,12 +22,12 @@ Early levels say more than the verdict. Named hints count the wrong things and n
 | Garage Gig | 1 | none | 4 | 1–2 | named | 6 | 3 |
 | Battle of the Bands | 2 | none | 4 | 1–2 | named | 10 | 6 |
 | Basement Show | 2 | none | 5 | 1–3 | counted | 14 | 10 |
-| Saucy Set | 2 | sauce | 5 | 1–3 | counted | 15 | 10 |
-| Three-Piece | 3 | sauce | 5 | 1–3 | counted | 21 | 15 |
+| Open Mic Night | 2 | sauce | 5 | 1–3 | counted | 15 | 10 |
+| Power Trio | 3 | sauce | 5 | 1–3 | counted | 21 | 15 |
 | Fog Machine | 3 | sauce | 5 | 1–3 | vague | 30 | 21 |
 | Late Show | 3 | sauce | 6 | 1–3 | vague | 34 | 24 |
 | Festival Main Stage | 3 | crust, sauce | 6 | 1–3 | vague | 58 | 42 |
-| Drum-Off Finale | 4 | crust, sauce | 7 | 1–3 | vague | 80 | 60 |
+| Grand Finale | 4 | crust, sauce | 7 | 1–3 | vague | 80 | 60 |
 
 Patience is shared by the whole band, and you can serve one drummer while another is still tasting.
 

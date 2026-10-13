@@ -1079,7 +1079,7 @@ pub mod tests {
         let mut g = started(2);
         let ui = g.ui();
         assert_eq!(ui["mode"], "play");
-        assert_eq!(ui["play"]["drummers"][1]["serve_label"], "Serve Paradiddle Pat");
+        assert_eq!(ui["play"]["drummers"][1]["serve_label"], "Serve Snare Drum Stan");
         assert_eq!(ui["play"]["drummers"][1]["can_serve"], true);
         assert_eq!(ui["play"]["patience"], "10 of 10");
         assert_eq!(ui["level"]["rules"][0], "2 drummers to feed at once.");

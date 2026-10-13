@@ -1,9 +1,9 @@
 {
   "_about": "The drummers, in the order they take the stage. `step_ms` is one sixteenth note of their riffs. Colours: shirt, headband, skin, the drum shells.",
   "drummers": [
-    { "name": "Rimshot Rex", "step_ms": 105, "shirt": "#2f6fd6", "band": "#f2c230", "skin": "#e0a878", "shell": "#d23b3b" },
-    { "name": "Paradiddle Pat", "step_ms": 115, "shirt": "#e2662b", "band": "#2fbf9a", "skin": "#8c5a3c", "shell": "#3b4fd2" },
-    { "name": "Crash Cymbal Sal", "step_ms": 98, "shirt": "#7b3fc4", "band": "#ff6fae", "skin": "#f1c9a0", "shell": "#2a9d55" },
-    { "name": "Double-Kick Moe", "step_ms": 125, "shirt": "#1f9e8f", "band": "#f05a28", "skin": "#c68a5e", "shell": "#e0b020" }
+    { "name": "Hi-Hat Hank", "step_ms": 105, "shirt": "#2f6fd6", "band": "#f2c230", "skin": "#e0a878", "shell": "#d23b3b" },
+    { "name": "Snare Drum Stan", "step_ms": 115, "shirt": "#e2662b", "band": "#2fbf9a", "skin": "#8c5a3c", "shell": "#3b4fd2" },
+    { "name": "Cymbal Sal", "step_ms": 98, "shirt": "#7b3fc4", "band": "#ff6fae", "skin": "#f1c9a0", "shell": "#2a9d55" },
+    { "name": "Tom-Tom Theo", "step_ms": 125, "shirt": "#1f9e8f", "band": "#f05a28", "skin": "#c68a5e", "shell": "#e0b020" }
   ]
 }

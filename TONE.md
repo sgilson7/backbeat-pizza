@@ -57,4 +57,14 @@ Filler:
 Exclamation:
 
 - !
+
+Innuendo: words with a second, adult reading, ruled out after Sam's first read (TRIAGE T1):
+
+- rimshot
+- nailed
+- licks
+- lay
+- saucy
+- three-piece
+- drum-off
 <!-- lint:end -->
