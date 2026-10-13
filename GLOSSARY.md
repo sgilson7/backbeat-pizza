@@ -28,7 +28,7 @@ Not: customer, diner
 
 ### Hint
 
-What a drummer says after his riff. A level's hints are named (they count the wrong things and name the first, or count the missing toppings), counted (they give the counts only) or vague (the verdict only).
+What a drummer says after his riff. A level's hints are named (they count the wrong things and name the first, or count the missing toppings), counted (they give the counts only), vague (the verdict only) or rated (each layer right or wrong, and the toppings perfect, close or miss on their own).
 
 Not: clue, tip
 

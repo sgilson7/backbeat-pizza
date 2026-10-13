@@ -228,6 +228,30 @@ mod tests {
     }
 
     #[test]
+    fn a_layer_rated_on_its_own_takes_at_most_its_options_in_pizzas() {
+        // Worked by hand: one sauce layer of three and one topping that is
+        // always on. Each rated hint says only whether the sauce is right,
+        // so the worst order is the third sauce tried: three pizzas. A vague
+        // hint says the same here, and a named one names the wrong sauce,
+        // which is no help either.
+        let l = Layout {
+            picks: vec![3],
+            toppings: 1,
+            min: 1,
+            max: 1,
+        };
+        assert_eq!(worst_case(&l, Clarity::Rated), 3);
+        // with two layers of three, rated hints work on both at once: still
+        // three, where a vague hint needs up to nine
+        let two = Layout {
+            picks: vec![3, 3],
+            ..l
+        };
+        assert_eq!(worst_case(&two, Clarity::Rated), 3);
+        assert_eq!(worst_case(&two, Clarity::Vague), 9);
+    }
+
+    #[test]
     fn one_topping_and_nothing_else_takes_at_most_two_pizzas_with_named_hints() {
         // Worked by hand: orders {a}, {b}. Serve {a}: perfect, or a miss
         // naming a (so the order is {b}), and {b} is served next.

@@ -221,7 +221,7 @@ pub const HINT_KEYS: [&str; 9] = [
 ];
 
 /// The copy keys the core fills; the page's own keys are its business.
-pub const COPY_KEYS: [&str; 21] = [
+pub const COPY_KEYS: [&str; 25] = [
     "level_label",
     "drummers_one",
     "drummers_many",
@@ -231,6 +231,10 @@ pub const COPY_KEYS: [&str; 21] = [
     "clarity_named",
     "clarity_counted",
     "clarity_vague",
+    "clarity_rated",
+    "rating_right",
+    "rating_wrong",
+    "rating_toppings",
     "patience_rule",
     "patience_value",
     "serve_to",

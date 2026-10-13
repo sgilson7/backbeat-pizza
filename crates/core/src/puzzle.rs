@@ -14,7 +14,9 @@
 //! counts the wrong things and names the first of them (layers first, then
 //! toppings, in menu order), or counts what is missing; a counted hint
 //! counts the wrong things or the missing toppings; a vague hint says only
-//! miss, close or perfect. Each clarity says everything the next one says.
+//! miss, close or perfect. Each of those says everything the next one says.
+//! A rated hint instead gives a scorecard: each pick-one layer right or
+//! wrong, and the toppings on their own perfect, close or miss.
 
 use serde::Deserialize;
 
@@ -25,6 +27,9 @@ pub enum Clarity {
     Named,
     Counted,
     Vague,
+    /// each pick-one layer is rated right or wrong, and the toppings on
+    /// their own are rated miss, close or perfect
+    Rated,
 }
 
 /// The shape of a level's menu: how many options each pick-one layer has,
@@ -64,6 +69,12 @@ pub enum Detail {
     Count(u8),
     /// the first wrong thing, and how many wrong things there are
     Named(Item, u8),
+    /// a rating per part: the wrong pick-one layers as a bit set, and the
+    /// toppings' own verdict
+    Rated {
+        layers: u8,
+        toppings: Verdict,
+    },
 }
 
 /// What a drummer says about one pizza.
@@ -86,12 +97,13 @@ impl Feedback {
             Detail::None => 0,
             Detail::Count(n) => 1 + n as usize,
             Detail::Named(i, n) => 64 + item(i) * 32 + n as usize,
+            Detail::Rated { layers, toppings } => 64 + 48 * 32 + layers as usize * 3 + toppings as usize,
         };
         v * PER_VERDICT + d
     }
 }
 
-const PER_VERDICT: usize = 64 + 48 * 32;
+const PER_VERDICT: usize = 64 + 48 * 32 + 16 * 3;
 /// Every `Feedback::code` is below this.
 pub const CODES: usize = 3 * PER_VERDICT;
 
@@ -181,6 +193,27 @@ pub fn judge(order: &Pizza, pizza: &Pizza, clarity: Clarity) -> Feedback {
     let extra = pizza.tops & !order.tops;
     let wrong = wrong_picks + extra.count_ones() as usize;
     let missing = (order.tops & !pizza.tops).count_ones() as u8;
+    if clarity == Clarity::Rated {
+        let layers = order
+            .picks
+            .iter()
+            .zip(&pizza.picks)
+            .enumerate()
+            .filter(|(_, (a, b))| a != b)
+            .fold(0u8, |m, (l, _)| m | 1 << l);
+        let toppings = if extra != 0 {
+            Verdict::Miss
+        } else if missing > 0 {
+            Verdict::Close
+        } else {
+            Verdict::Perfect
+        };
+        let verdict = if layers != 0 { Verdict::Miss } else { toppings };
+        return Feedback {
+            verdict,
+            detail: Detail::Rated { layers, toppings },
+        };
+    }
     if wrong > 0 {
         let detail = match clarity {
             Clarity::Named => {
@@ -199,7 +232,7 @@ pub fn judge(order: &Pizza, pizza: &Pizza, clarity: Clarity) -> Feedback {
                 )
             }
             Clarity::Counted => Detail::Count(wrong as u8),
-            Clarity::Vague => Detail::None,
+            _ => Detail::None,
         };
         return Feedback {
             verdict: Verdict::Miss,
@@ -278,6 +311,45 @@ mod tests {
     }
 
     #[test]
+    fn a_rated_hint_scores_each_layer_and_the_toppings_on_their_own() {
+        // order: crust 0, sauce 1, toppings 0 and 1
+        let order = pz(&[0, 1], 0b011);
+        // sauce wrong, toppings a subset: the sauce is wrong, the toppings
+        // close, and the pizza as a whole a miss
+        let f = judge(&order, &pz(&[0, 2], 0b001), Clarity::Rated);
+        assert_eq!(
+            f,
+            Feedback {
+                verdict: Verdict::Miss,
+                detail: Detail::Rated {
+                    layers: 0b10,
+                    toppings: Verdict::Close
+                }
+            }
+        );
+        // both layers right, topping 2 extra: the toppings are a miss
+        let g = judge(&order, &pz(&[0, 1], 0b111), Clarity::Rated);
+        assert_eq!(
+            g.detail,
+            Detail::Rated {
+                layers: 0,
+                toppings: Verdict::Miss
+            }
+        );
+        // crust wrong, toppings exact: only the crust is marked
+        let h = judge(&order, &pz(&[2, 1], 0b011), Clarity::Rated);
+        assert_eq!(h.verdict, Verdict::Miss);
+        assert_eq!(
+            h.detail,
+            Detail::Rated {
+                layers: 0b01,
+                toppings: Verdict::Perfect
+            }
+        );
+        assert_eq!(judge(&order, &order, Clarity::Rated).verdict, Verdict::Perfect);
+    }
+
+    #[test]
     fn orders_hold_between_min_and_max_toppings_with_every_layer_combination() {
         let l = Layout {
             picks: vec![3],
@@ -304,6 +376,11 @@ mod tests {
                     }
                 }
                 details.extend((0..MOST_TOPPINGS).map(|t| Detail::Named(Item::Topping(t), n)));
+            }
+            for layers in 0..16 {
+                for toppings in [Verdict::Perfect, Verdict::Close, Verdict::Miss] {
+                    details.push(Detail::Rated { layers, toppings });
+                }
             }
             for detail in details {
                 all.push(Feedback { verdict, detail }.code());

@@ -1,5 +1,5 @@
 {
-  "_about": "The ten levels, easiest first. `layers` lists the pick-one layers in use; `toppings` how many of the menu's toppings; each order holds `min` to `max` toppings; `clarity` is named, counted or vague (see GLOSSARY.md, Hint). `patience` is how many pizzas the whole band will taste; crates/core/src/levels.rs checks that the solver wins every possible order within it.",
+  "_about": "The ten levels, easiest first. `layers` lists the pick-one layers in use; `toppings` how many of the menu's toppings; each order holds `min` to `max` toppings; `clarity` is named, counted, vague or rated (see GLOSSARY.md, Hint). `patience` is how many pizzas the whole band will taste; crates/core/src/levels.rs checks that the solver wins every possible order within it.",
   "levels": [
     {"name": "Soundcheck", "drummers": 1, "layers": [], "toppings": 3, "min": 1, "max": 2, "clarity": "named", "patience": 5},
     {"name": "Garage Gig", "drummers": 1, "layers": [], "toppings": 4, "min": 1, "max": 2, "clarity": "named", "patience": 6},
@@ -7,9 +7,9 @@
     {"name": "Basement Show", "drummers": 2, "layers": [], "toppings": 5, "min": 1, "max": 3, "clarity": "counted", "patience": 14},
     {"name": "Open Mic Night", "drummers": 2, "layers": ["sauce"], "toppings": 5, "min": 1, "max": 3, "clarity": "counted", "patience": 15},
     {"name": "Power Trio", "drummers": 3, "layers": ["sauce"], "toppings": 5, "min": 1, "max": 3, "clarity": "counted", "patience": 21},
-    {"name": "Fog Machine", "drummers": 3, "layers": ["sauce"], "toppings": 5, "min": 1, "max": 3, "clarity": "vague", "patience": 30},
-    {"name": "Late Show", "drummers": 3, "layers": ["sauce"], "toppings": 6, "min": 1, "max": 3, "clarity": "vague", "patience": 34},
-    {"name": "Festival Main Stage", "drummers": 3, "layers": ["crust", "sauce"], "toppings": 6, "min": 1, "max": 3, "clarity": "vague", "patience": 58},
-    {"name": "Grand Finale", "drummers": 4, "layers": ["crust", "sauce"], "toppings": 7, "min": 1, "max": 3, "clarity": "vague", "patience": 80}
+    {"name": "Fog Machine", "drummers": 3, "layers": ["sauce"], "toppings": 6, "min": 1, "max": 3, "clarity": "rated", "patience": 25},
+    {"name": "Late Show", "drummers": 3, "layers": ["crust", "sauce"], "toppings": 6, "min": 1, "max": 3, "clarity": "rated", "patience": 26},
+    {"name": "Festival Main Stage", "drummers": 3, "layers": ["crust", "sauce"], "toppings": 7, "min": 1, "max": 3, "clarity": "rated", "patience": 30},
+    {"name": "Grand Finale", "drummers": 4, "layers": ["crust", "sauce"], "toppings": 7, "min": 1, "max": 4, "clarity": "rated", "patience": 40}
   ]
 }

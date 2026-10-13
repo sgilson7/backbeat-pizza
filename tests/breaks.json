@@ -23,8 +23,8 @@
   {
     "name": "patience covers the solver",
     "file": "data/levels.json",
-    "find": "\"patience\": 80",
-    "replace": "\"patience\": 59",
+    "find": "\"patience\": 40",
+    "replace": "\"patience\": 27",
     "test": "the_solver_finishes_every_order_of_every_level_within_its_patience"
   },
   {
@@ -96,5 +96,26 @@
     "find": "fx::mul(dist, half) / 2",
     "replace": "0",
     "test": "on_a_phone_held_upright_the_bubbles_start_below_the_middle_of_the_stage"
+  },
+  {
+    "name": "a rated hint marks the wrong layers",
+    "file": "crates/core/src/puzzle.rs",
+    "find": ".fold(0u8, |m, (l, _)| m | 1 << l);",
+    "replace": ".fold(0u8, |m, (_, _)| m);",
+    "test": "a_rated_hint_scores_each_layer_and_the_toppings_on_their_own"
+  },
+  {
+    "name": "a rated hint rates the toppings on their own",
+    "file": "crates/core/src/puzzle.rs",
+    "find": "        } else if missing > 0 {\n            Verdict::Close\n",
+    "replace": "        } else if missing > 0 {\n            Verdict::Perfect\n",
+    "test": "a_rated_hint_scores_each_layer_and_the_toppings_on_their_own"
+  },
+  {
+    "name": "the screen shows a rated hint's scorecard",
+    "file": "crates/core/src/game.rs",
+    "find": "                let (verdict, key) = if layers & (1 << k) != 0 {",
+    "replace": "                let (verdict, key) = if layers & (1 << k) == 0 {",
+    "test": "a_rated_level_shows_each_drummer_s_scorecard_in_the_bubble_and_the_log"
   }
 ]

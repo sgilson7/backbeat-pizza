@@ -14,7 +14,7 @@
 
 - A 3D stage in WebGL 2: drummers at drum kits on risers, speakers, a curtain with string lights, the counter with the pizza being built, and robed, masked Masklings who carry each pizza up.
 - A served pizza is carried over, tasted, and answered with a riff (perfect, close and miss riffs, drum-machine grids in `data/riffs.json`, synthesized drums) and a hint in surfer-drummer slang in a speech bubble and the drummer's log.
-- Ten levels: one to four drummers in parallel, three to seven toppings, toppings only, then sauce, then crust and sauce, and hints going from named to counted to vague.
+- Ten levels: one to four drummers in parallel, three to seven toppings, toppings only, then sauce, then crust and sauce, and hints going from named to counted, then rated part by part on the last four (T3).
 - A solver that sees only the hints. `levels.rs` plays it against every possible order of every level and checks it always finishes within the level's patience; `game.rs` plays all ten levels through the page's own actions.
 - No file in the repository names the source game (`source_names.rs`).
 
@@ -22,8 +22,8 @@
 
 | Command | Result |
 | --- | --- |
-| `./scripts/check.sh` (local) | BUILDER CHECK PASSED: fmt, clippy, 97 tests, release wasm (about 490 KB), import audit, browser check in Chromium, Firefox and WebKit |
-| `python3 scripts/break_tests.py` | 14 of 14 planted breaks caught (after strengthening one test, SECOND-ORDER R1.8) |
+| `./scripts/check.sh` (local) | BUILDER CHECK PASSED: fmt, clippy, 100 tests, release wasm (about 490 KB), import audit, browser check in Chromium, Firefox and WebKit |
+| `python3 scripts/break_tests.py` | 17 of 17 planted breaks caught (after strengthening one test, SECOND-ORDER R1.8) |
 | GitHub Actions on the first push | check passed (Chromium) and deployed |
 | `BUILDER_ORIGIN=https://sgilson7.github.io/backbeat-pizza tests/browser/check.py` | BROWSER CHECK PASSED in three engines against the live site |
 | website `make check`, `make packet`, `make gate`, `publish.sh`, `make gate-live` | no findings; all packet checks pass; gate passed locally and live (build c451f47b). Built from a clean git worktree, so another session's uncommitted edit to `content/projects/packet-alley.md` stayed unpublished and untouched |

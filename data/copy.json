@@ -8,7 +8,8 @@
     "Build a pizza at the counter, then serve it to a drummer. A Maskling carries it over.",
     "The drummer plays a riff and drops a hint. ★ Perfect: that's the order. ▲ Close: nothing on it is wrong, but something is missing. ✕ Miss: something on it is wrong.",
     "The whole band shares one patience. Every pizza served uses one. Crack every order before it runs out.",
-    "You can serve another drummer while one is still tasting."
+    "You can serve another drummer while one is still tasting.",
+    "On later levels a drummer also rates each part on its own: every layer ✓ or ✕, and the toppings ★, ▲ or ✕."
   ],
   "play": "Play",
   "levels_heading": "Levels",
@@ -21,6 +22,10 @@
   "clarity_named": "Hints count the wrong things and name one of them, or count the missing toppings.",
   "clarity_counted": "Hints count the wrong things, or count the missing toppings.",
   "clarity_vague": "Hints say only perfect, close or miss.",
+  "clarity_rated": "Hints rate each part on its own: every layer right or wrong, and the toppings perfect, close or a miss.",
+  "rating_right": "✓",
+  "rating_wrong": "✕",
+  "rating_toppings": "Toppings",
   "patience_rule": "The band will taste {count} pizzas in all.",
   "start": "Start the show",
   "patience_label": "Patience",

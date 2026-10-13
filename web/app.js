@@ -31,6 +31,18 @@ function chip(item) {
   return c;
 }
 
+// A rated hint's scorecard: one mark per part of the pizza.
+function ratings(list) {
+  const row = make("div", "ratings");
+  for (const r of list) {
+    const mark = make("span", "rating");
+    mark.dataset.verdict = r.verdict;
+    mark.append(make("span", "part", r.part), make("span", "", r.label));
+    row.append(mark);
+  }
+  return row;
+}
+
 async function start() {
   const [menu, levels, band, hints, riffs, copyText, scene, masklings, soundsText, vertex, fragment, build] =
     await Promise.all([
@@ -184,7 +196,9 @@ async function start() {
           );
           const chips = make("div", "chips");
           chips.append(...e.chips.map(chip));
-          li.append(top, chips, make("p", "line", e.line));
+          li.append(top);
+          if (e.ratings.length) li.append(ratings(e.ratings));
+          li.append(chips, make("p", "line", e.line));
           list.append(li);
         }
         box.append(list);
@@ -202,6 +216,7 @@ async function start() {
           b.style.width = p.bubble_width;
           b.append(make("strong", "", d.name));
           if (d.bubble.label) b.append(make("span", "verdict", d.bubble.label));
+          if (d.bubble.ratings && d.bubble.ratings.length) b.append(ratings(d.bubble.ratings));
           b.append(make("p", "", d.bubble.line));
           return b;
         }),

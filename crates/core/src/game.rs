@@ -472,6 +472,7 @@ impl Game {
                 vec![("count", n.to_string())],
             ),
             (Verdict::Miss, Detail::None) => ("miss_vague", vec![]),
+            (Verdict::Miss, Detail::Rated { .. }) => ("miss_vague", vec![]),
         }
     }
 
@@ -530,7 +531,7 @@ impl Game {
         } else {
             0
         };
-        let target = v3(0, int(1) + ONE * 85 / 100 + lift, -int(1) - ONE * 6 / 10);
+        let target = v3(0, int(2) + ONE / 10 + lift, -int(1) - ONE * 6 / 10);
         let back = v3(0, ONE * 36 / 100, ONE).norm();
         let eye = target.add(back.scale(dist));
         Camera {
@@ -617,6 +618,39 @@ impl Game {
         out
     }
 
+    /// A rated hint's scorecard: each layer right or wrong, then the
+    /// toppings' own verdict. Empty for any other hint.
+    fn ratings(&self, f: &Feedback) -> Vec<Value> {
+        let Detail::Rated { layers, toppings } = f.detail else {
+            return Vec::new();
+        };
+        let def = self.level_def();
+        let mut out: Vec<Value> = def
+            .layers
+            .iter()
+            .enumerate()
+            .map(|(k, &l)| {
+                let (verdict, key) = if layers & (1 << k) != 0 {
+                    ("miss", "rating_wrong")
+                } else {
+                    ("perfect", "rating_right")
+                };
+                json!({
+                    "part": self.c.menu.layers[l].name,
+                    "verdict": verdict,
+                    "label": self.c.say(key, &[]),
+                })
+            })
+            .collect();
+        let (verdict, label) = self.verdict_label(toppings);
+        out.push(json!({
+            "part": self.c.say("rating_toppings", &[]),
+            "verdict": verdict,
+            "label": label,
+        }));
+        out
+    }
+
     fn verdict_label(&self, v: Verdict) -> (&'static str, String) {
         let key = match v {
             Verdict::Perfect => "perfect",
@@ -659,6 +693,7 @@ impl Game {
             Clarity::Named => "clarity_named",
             Clarity::Counted => "clarity_counted",
             Clarity::Vague => "clarity_vague",
+            Clarity::Rated => "clarity_rated",
         };
         out.push(self.c.say(clarity, &[]));
         out.push(
@@ -761,6 +796,7 @@ impl Game {
                                 "verdict": verdict,
                                 "verdict_label": label,
                                 "line": e.line,
+                                "ratings": self.ratings(&e.feedback),
                                 "rebuild": format!("{d}:{k}"),
                             })
                         })
@@ -771,7 +807,14 @@ impl Game {
                         }
                         (_, Some(e)) => {
                             let (verdict, label) = self.verdict_label(e.feedback.verdict);
-                            json!({ "verdict": verdict, "label": label, "line": e.line })
+                            let ratings = self.ratings(&e.feedback);
+                            // a scorecard already says the verdict, and a
+                            // bubble has little room
+                            let label = if ratings.is_empty() { label } else { String::new() };
+                            json!({
+                                "verdict": verdict, "label": label, "line": e.line,
+                                "ratings": ratings,
+                            })
                         }
                         _ => Value::Null,
                     };
@@ -1012,6 +1055,42 @@ pub mod tests {
                 g.mode
             );
         }
+    }
+
+    #[test]
+    fn a_rated_level_shows_each_drummer_s_scorecard_in_the_bubble_and_the_log() {
+        let mut g = started(6); // Fog Machine: sauce, six toppings, rated
+        g.play.as_mut().unwrap().seats[0].order = Pizza {
+            picks: vec![1],
+            tops: 0b011,
+        };
+        // tomato sauce (wrong) with pepperoni alone (close)
+        g.act("pizza.top", "0").unwrap();
+        serve_and_wait(&mut g, 0);
+        let ui = g.ui();
+        let d = &ui["play"]["drummers"][0];
+        let want = json!([
+            { "part": "Sauce", "verdict": "miss", "label": "✕" },
+            { "part": "Toppings", "verdict": "close", "label": "▲ Close" },
+        ]);
+        assert_eq!(d["log"][0]["ratings"], want);
+        assert_eq!(d["bubble"]["ratings"], want);
+        assert_eq!(d["bubble"]["verdict"], "miss");
+        assert_eq!(
+            d["bubble"]["label"], "",
+            "the scorecard stands in for the verdict"
+        );
+        assert_eq!(d["log"][0]["verdict"], "miss");
+        assert!(ui["level"]["rules"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|r| r.as_str().unwrap().starts_with("Hints rate each part")));
+        // a level whose hints are not rated has no scorecard
+        let mut h = started(0);
+        h.act("pizza.top", "0").unwrap();
+        serve_and_wait(&mut h, 0);
+        assert_eq!(h.ui()["play"]["drummers"][0]["log"][0]["ratings"], json!([]));
     }
 
     #[test]

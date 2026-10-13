@@ -12,17 +12,17 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-ready="false" data-mode="loading">
+  <header id="bar">
+    <span id="bar-title" data-copy="title"></span>
+    <span id="bar-level"></span>
+    <span id="bar-patience"><span data-copy="patience_label"></span> <strong id="patience"></strong></span>
+    <span class="spacer"></span>
+    <button id="sound" type="button"></button>
+    <button id="to-levels" type="button" data-copy="to_levels"></button>
+  </header>
   <div id="stage">
     <canvas id="view" aria-hidden="true"></canvas>
     <div id="bubbles" aria-live="polite"></div>
-    <header id="bar">
-      <span id="bar-title" data-copy="title"></span>
-      <span id="bar-level"></span>
-      <span id="bar-patience"><span data-copy="patience_label"></span> <strong id="patience"></strong></span>
-      <span class="spacer"></span>
-      <button id="sound" type="button"></button>
-      <button id="to-levels" type="button" data-copy="to_levels"></button>
-    </header>
   </div>
 
   <main id="play" hidden>

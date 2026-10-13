@@ -17,6 +17,9 @@ Stage 6, kept by the agent as the work happens, not afterwards. `B3 Build in sel
 | R1.11 | finding | The hint `{count}` is a numeral ("2 things on here are bogus"), filled by the core. One and many have separate lists so the grammar fits. *done* |
 | R2.1 | divergence | T2 moved the log's order into the core: `ui()` lists each drummer's pizzas newest first, with a number from the new copy key `log_number` ("#{n}"), so the page never reverses or counts. *done* |
 | R2.2 | finding | Narrowing the stage to make room for the kitchen pushed the bubbles into the top bar. The camera now aims a little higher on every screen, and on a screen taller than wide it aims higher in proportion to its distance. The phone overlap was already there before T2. On a window 720 pixels tall the bubbles use a smaller font. *done* |
+| R3.1 | divergence | T3 replaced vague hints on levels 7–10 with rated ones, so no level now gives only the verdict, and PLAN.md's last clarity step (vague) no longer appears in play. Vague stays in the core and its tests. Level 7 grew from five toppings to six and level 8 gained the crust layer, so rated levels keep getting harder; level 10's orders hold up to four toppings. *done* |
+| R3.2 | worklist | The new patience numbers (25, 26, 30, 40) keep the old ratio of about 1.4 times the solver's worst case. A person plays worse than the solver; the person's play decides whether they are too tight. *person* |
+| R3.3 | finding | With a scorecard, a bubble was too tall for four drummers and pushed into the bar. In play on a wide screen the bar now has its own strip above the stage; a bubble with a scorecard drops the overall verdict (the scorecard says it), and on a short or narrow screen it leaves its words to the log. *done* |
 
 ## Strings written by the agent
 
@@ -24,7 +27,7 @@ Every reader-visible string was written by the agent, for the person to read:
 
 | File | What |
 | --- | --- |
-| `data/copy.json` | the title, how to play, buttons, the level card's rules, results, the log's pizza number |
+| `data/copy.json` | the title, how to play, buttons, the level card's rules, results, the log's pizza number, the rated hint's rule and marks |
 | `data/hints.json` | every drummer line, by verdict, clarity and count |
 | `data/levels.json` | the ten level names |
 | `data/band.json` | the four drummers' names |
