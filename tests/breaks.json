@@ -93,8 +93,8 @@
   {
     "name": "a tall screen aims the camera higher",
     "file": "crates/core/src/game.rs",
-    "find": "let lift = if self.aspect() < ONE { fx::mul(dist, half) / 2 } else { 0 };",
-    "replace": "let lift = 0;",
+    "find": "fx::mul(dist, half) / 2",
+    "replace": "0",
     "test": "on_a_phone_held_upright_the_bubbles_start_below_the_middle_of_the_stage"
   }
 ]
