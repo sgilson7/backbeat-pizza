@@ -523,7 +523,14 @@ impl Game {
         let across = fx::mul(half, self.aspect()).max(ONE / 8);
         let band = (self.on_stage() as i32 - 1) * SEAT_SPACING / 2 + BAND_MARGIN;
         let dist = fx::div(band, across).max(int(8) + ONE / 2);
-        let target = v3(0, int(1) + ONE * 35 / 100, -int(1) - ONE * 6 / 10);
+        // a tall screen has floor to spare, so it looks higher and the band and
+        // its bubbles sit lower, clear of the bar
+        let lift = if self.aspect() < ONE {
+            fx::mul(dist, half) / 2
+        } else {
+            0
+        };
+        let target = v3(0, int(1) + ONE * 85 / 100 + lift, -int(1) - ONE * 6 / 10);
         let back = v3(0, ONE * 36 / 100, ONE).norm();
         let eye = target.add(back.scale(dist));
         Camera {
@@ -740,13 +747,16 @@ impl Game {
                 .enumerate()
                 .map(|(d, seat)| {
                     let name = &self.c.band[d].name;
+                    // newest first, so the latest hint is never below the fold
                     let log: Vec<Value> = seat
                         .log
                         .iter()
                         .enumerate()
+                        .rev()
                         .map(|(k, e)| {
                             let (verdict, label) = self.verdict_label(e.feedback.verdict);
                             json!({
+                                "number": self.c.say("log_number", &[("n", (k + 1).to_string())]),
                                 "chips": self.chips(&e.pizza),
                                 "verdict": verdict,
                                 "verdict_label": label,
@@ -1075,6 +1085,22 @@ pub mod tests {
     }
 
     #[test]
+    fn each_log_lists_the_newest_pizza_first_with_its_number() {
+        let mut g = started(0);
+        g.act("pizza.top", "0").unwrap();
+        serve_and_wait(&mut g, 0);
+        g.act("pizza.top", "1").unwrap();
+        serve_and_wait(&mut g, 0);
+        let log = g.ui()["play"]["drummers"][0]["log"].clone();
+        // pizza 2 holds toppings 0 and 1; pizza 1 holds topping 0 alone
+        assert_eq!(log[0]["number"], "#2");
+        assert_eq!(log[0]["rebuild"], "0:1");
+        assert_eq!(log[0]["chips"].as_array().unwrap().len(), 2);
+        assert_eq!(log[1]["number"], "#1");
+        assert_eq!(log[1]["rebuild"], "0:0");
+    }
+
+    #[test]
     fn the_screen_lists_the_serve_buttons_and_the_rules() {
         let mut g = started(2);
         let ui = g.ui();
@@ -1102,6 +1128,27 @@ pub mod tests {
         assert_eq!(g.act("dance", "").unwrap_err(), "Unknown action \"dance\".");
         assert_eq!(g.act("level.choose", "10").unwrap_err(), "There is no level 11.");
         assert!(g.act("serve", "0").is_err());
+    }
+
+    #[test]
+    fn on_a_phone_held_upright_the_bubbles_start_below_the_middle_of_the_stage() {
+        // 390 by 470 is a phone's stage; the bar takes the top tenth, and a
+        // bubble of six short lines needs about a third of the height above it
+        let mut g = started(9);
+        g.resize(390, 470, 100);
+        let ui = g.ui();
+        for d in 0..4 {
+            let at = &ui["play"]["drummers"][d]["at"];
+            let y: i32 = at[1]
+                .as_str()
+                .unwrap()
+                .split('.')
+                .next()
+                .unwrap()
+                .parse()
+                .unwrap();
+            assert!(y >= 50, "drummer {d} at {at}");
+        }
     }
 
     #[test]

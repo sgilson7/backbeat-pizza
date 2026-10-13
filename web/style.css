@@ -1,4 +1,5 @@
-/* Backbeat Pizza: a stage on top, the kitchen and the order log below. */
+/* Backbeat Pizza. On a wide screen in play: the stage with the kitchen beside it, and one log
+   column per drummer across the bottom. On a narrow one everything stacks. */
 :root {
   --night: #1d1530;
   --panel: #2a2046;
@@ -44,35 +45,64 @@ body[data-mode="won"] #stage, body[data-mode="lost"] #stage, body[data-mode="fin
 .bubble[data-verdict="miss"] { border-color: #b02a2a; box-shadow: 0 3px 0 #b02a2a; }
 .bubble[data-verdict="tasting"] p { font-style: italic; }
 
-#play { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 0.8rem; padding: 0.8rem; }
-@media (max-width: 760px) { #play { grid-template-columns: 1fr; } .bubble { font-size: 0.7rem; padding: 0.3rem 0.4rem; } }
-#kitchen, #log { background: var(--panel); border-radius: 14px; padding: 0.8rem; border: 1px solid var(--line); }
-#log { max-height: 60vh; overflow: auto; }
-.options { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.7rem; }
+#play { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.6rem; padding: 0.6rem; }
+#kitchen, #log { background: var(--panel); border-radius: 14px; padding: 0.7rem; border: 1px solid var(--line); min-height: 0; }
+#log { display: flex; flex-direction: column; }
+/* in play on a wide screen the page fills the window exactly, and each log column scrolls on its own */
+@media (min-width: 900px) {
+  body[data-mode="play"] { display: grid; height: 100vh; overflow: hidden;
+    grid-template-columns: minmax(0, 1fr) minmax(19rem, 30rem); grid-template-rows: 52vh minmax(0, 1fr) auto; }
+  body[data-mode="play"] #stage { height: auto; min-height: 0; grid-column: 1; grid-row: 1; }
+  body[data-mode="play"] #play { display: contents; }
+  body[data-mode="play"] #kitchen { grid-column: 2; grid-row: 1; margin: 0.6rem 0.6rem 0 0; overflow: auto; }
+  body[data-mode="play"] #log { grid-column: 1 / -1; grid-row: 2; margin: 0.6rem 0.6rem 0; }
+  body[data-mode="play"] footer { grid-column: 1 / -1; grid-row: 3; }
+  /* the serve buttons stay in sight when the kitchen is short */
+  #serve { position: sticky; bottom: -0.7rem; background: var(--panel); padding: 0.4rem 0 0.7rem; margin-bottom: -0.7rem; }
+}
+@media (min-width: 900px) and (max-height: 820px) {
+  .bubble { font-size: 0.72rem; padding: 0.25rem 0.45rem; line-height: 1.25; }
+  .bubble strong { font-size: 0.65rem; }
+}
+#play[hidden] { display: none; }
+/* the drummer names head the columns, so the log heading is for screen readers only */
+#log > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+#log-drummers { flex: 1; min-height: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(13rem, 1fr); gap: 0.6rem; overflow-x: auto; }
+@media (max-width: 760px) {
+  #log-drummers { grid-auto-columns: minmax(80vw, 1fr); scroll-snap-type: x mandatory; }
+  .drummer { max-height: 70vh; scroll-snap-align: start; }
+  .bubble { font-size: 0.7rem; padding: 0.3rem 0.4rem; }
+}
+.options { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.5rem; }
 .option { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--panel-2); border: 2px solid var(--line);
-  border-radius: 999px; padding: 0.3rem 0.75rem 0.3rem 0.4rem; }
+  border-radius: 999px; padding: 0.2rem 0.65rem 0.2rem 0.35rem; font-size: 0.92rem; }
 .option[aria-pressed="true"] { border-color: var(--gold); background: #4b3b1c; }
 .option[aria-pressed="true"]::after { content: "✓"; color: var(--gold); font-weight: 800; }
 .chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-#pizza { min-height: 2rem; margin-bottom: 0.7rem; padding: 0.4rem; border: 2px dashed var(--line); border-radius: 12px; }
+#pizza { min-height: 2rem; margin-bottom: 0.5rem; padding: 0.4rem; border: 2px dashed var(--line); border-radius: 12px; }
 .chip { display: inline-flex; align-items: center; gap: 0.3rem; background: #0003; border-radius: 999px; padding: 0.1rem 0.55rem 0.1rem 0.25rem; font-size: 0.85rem; }
 #serve { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
 #serve-buttons { display: contents; }
-#serve button { border-radius: 10px; padding: 0.5rem 0.9rem; border: 2px solid var(--line); background: var(--panel-2); }
+#serve button { border-radius: 10px; padding: 0.4rem 0.8rem; border: 2px solid var(--line); background: var(--panel-2); }
 #serve button.serve { background: #e2662b; border-color: #ffb28a; font-weight: 700; color: #fff; }
 
-.drummer { border-top: 1px solid var(--line); padding-top: 0.5rem; margin-top: 0.5rem; }
-.drummer h3 { font-size: 1rem; display: flex; gap: 0.5rem; align-items: baseline; }
+.drummer { background: #0002; border-radius: 10px; padding: 0.5rem; overflow-y: auto; min-height: 0; }
+.drummer[data-fed="true"] { opacity: 0.7; }
+.drummer h3 { font-size: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: baseline; position: sticky; top: -0.5rem;
+  background: var(--panel); margin: -0.5rem -0.5rem 0.4rem; padding: 0.5rem; border-radius: 10px 10px 0 0; z-index: 1; }
 .drummer .status { font-size: 0.8rem; color: var(--gold); }
 .drummer .empty { color: var(--muted); margin: 0; font-size: 0.85rem; }
-.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; }
-.entry { background: #0002; border-left: 4px solid var(--line); border-radius: 8px; padding: 0.35rem 0.5rem; display: grid; gap: 0.2rem; }
+.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.entry { background: var(--panel-2); border-left: 4px solid var(--line); border-radius: 8px; padding: 0.3rem 0.45rem; display: grid; gap: 0.2rem; }
+.entry-head { display: flex; align-items: center; gap: 0.45rem; }
+.entry .number { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.entry .chip { font-size: 0.78rem; }
 .entry[data-verdict="perfect"] { border-left-color: var(--perfect); }
 .entry[data-verdict="close"] { border-left-color: var(--close); }
 .entry[data-verdict="miss"] { border-left-color: var(--miss); }
 .entry .verdict { font-weight: 800; font-size: 0.85rem; }
-.entry .line { margin: 0; font-size: 0.85rem; color: var(--muted); }
-.entry .rebuild { justify-self: start; background: none; border: 1px solid var(--line); border-radius: 6px; font-size: 0.75rem; padding: 0.1rem 0.5rem; }
+.entry .line { margin: 0; font-size: 0.8rem; color: var(--muted); }
+.entry .rebuild { margin-left: auto; background: none; border: 1px solid var(--line); border-radius: 6px; font-size: 0.75rem; padding: 0.1rem 0.5rem; }
 
 .card { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 4; width: min(36rem, 92vw);
   max-height: 90vh; overflow: auto; background: #2a2046f2; border: 2px solid var(--gold); border-radius: 18px; padding: 1.2rem 1.4rem; box-shadow: 0 6px 0 #0008; }

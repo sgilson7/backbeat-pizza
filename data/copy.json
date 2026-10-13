@@ -30,6 +30,7 @@
   "toppings_heading": "Toppings",
   "log_heading": "Order log",
   "log_empty": "No pizzas served yet.",
+  "log_number": "#{n}",
   "plain": "Plain",
   "rebuild": "Rebuild",
   "verdict_perfect": "★ Perfect",

@@ -221,7 +221,7 @@ pub const HINT_KEYS: [&str; 9] = [
 ];
 
 /// The copy keys the core fills; the page's own keys are its business.
-pub const COPY_KEYS: [&str; 20] = [
+pub const COPY_KEYS: [&str; 21] = [
     "level_label",
     "drummers_one",
     "drummers_many",
@@ -242,6 +242,7 @@ pub const COPY_KEYS: [&str; 20] = [
     "plain",
     "tasting",
     "fed",
+    "log_number",
 ];
 
 /// The scene colours the core needs from `data/scene.json`.

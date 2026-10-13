@@ -22,8 +22,8 @@
 
 | Command | Result |
 | --- | --- |
-| `./scripts/check.sh` (local) | BUILDER CHECK PASSED: fmt, clippy, 95 tests, release wasm (about 490 KB), import audit, browser check in Chromium, Firefox and WebKit |
-| `python3 scripts/break_tests.py` | 12 of 12 planted breaks caught (after strengthening one test, SECOND-ORDER R1.8) |
+| `./scripts/check.sh` (local) | BUILDER CHECK PASSED: fmt, clippy, 97 tests, release wasm (about 490 KB), import audit, browser check in Chromium, Firefox and WebKit |
+| `python3 scripts/break_tests.py` | 14 of 14 planted breaks caught (after strengthening one test, SECOND-ORDER R1.8) |
 | GitHub Actions on the first push | check passed (Chromium) and deployed |
 | `BUILDER_ORIGIN=https://sgilson7.github.io/backbeat-pizza tests/browser/check.py` | BROWSER CHECK PASSED in three engines against the live site |
 | website `make check`, `make packet`, `make gate`, `publish.sh`, `make gate-live` | no findings; all packet checks pass; gate passed locally and live (build c451f47b). Built from a clean git worktree, so another session's uncommitted edit to `content/projects/packet-alley.md` stayed unpublished and untouched |

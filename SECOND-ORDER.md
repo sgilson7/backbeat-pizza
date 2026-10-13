@@ -15,6 +15,8 @@ Stage 6, kept by the agent as the work happens, not afterwards. `B3 Build in sel
 | R1.9 | divergence | No 2D art: the template's TikZ art pipeline (`tools/art`, `styles/`, `tests/art_check.py`) was removed. Ingredient icons are CSS shapes in the ingredient's colour. *done* |
 | R1.10 | finding | `window.backbeat` exposes the core's `act` and `ui` so the browser check can ask for the solver's pizza (`solver.suggest`) and press the real serve button. A player could call it from the console; it gives nothing the buttons cannot, except the solver's choice. *open* |
 | R1.11 | finding | The hint `{count}` is a numeral ("2 things on here are bogus"), filled by the core. One and many have separate lists so the grammar fits. *done* |
+| R2.1 | divergence | T2 moved the log's order into the core: `ui()` lists each drummer's pizzas newest first, with a number from the new copy key `log_number` ("#{n}"), so the page never reverses or counts. *done* |
+| R2.2 | finding | Narrowing the stage to make room for the kitchen pushed the bubbles into the top bar. The camera now aims a little higher on every screen, and on a screen taller than wide it aims higher in proportion to its distance. The phone overlap was already there before T2. On a window 720 pixels tall the bubbles use a smaller font. *done* |
 
 ## Strings written by the agent
 
@@ -22,7 +24,7 @@ Every reader-visible string was written by the agent, for the person to read:
 
 | File | What |
 | --- | --- |
-| `data/copy.json` | the title, how to play, buttons, the level card's rules, results |
+| `data/copy.json` | the title, how to play, buttons, the level card's rules, results, the log's pizza number |
 | `data/hints.json` | every drummer line, by verdict, clarity and count |
 | `data/levels.json` | the ten level names |
 | `data/band.json` | the four drummers' names |

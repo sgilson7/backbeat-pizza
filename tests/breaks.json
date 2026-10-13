@@ -82,5 +82,19 @@
     "find": "if *steps.get_or_insert(n) != n {",
     "replace": "if false {",
     "test": "a_riff_with_rows_of_different_lengths_or_an_unknown_drum_is_refused"
+  },
+  {
+    "name": "the log lists the newest pizza first",
+    "file": "crates/core/src/game.rs",
+    "find": "                        .enumerate()\n                        .rev()\n",
+    "replace": "                        .enumerate()\n",
+    "test": "each_log_lists_the_newest_pizza_first_with_its_number"
+  },
+  {
+    "name": "a tall screen aims the camera higher",
+    "file": "crates/core/src/game.rs",
+    "find": "let lift = if self.aspect() < ONE { fx::mul(dist, half) / 2 } else { 0 };",
+    "replace": "let lift = 0;",
+    "test": "on_a_phone_held_upright_the_bubbles_start_below_the_middle_of_the_stage"
   }
 ]

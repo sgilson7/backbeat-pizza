@@ -176,10 +176,15 @@ async function start() {
         for (const e of d.log) {
           const li = make("li", "entry");
           li.dataset.verdict = e.verdict;
+          const top = make("div", "entry-head");
+          top.append(
+            make("span", "number", e.number),
+            make("span", "verdict", e.verdict_label),
+            button(copy.rebuild, "pizza.rebuild", e.rebuild, "rebuild"),
+          );
           const chips = make("div", "chips");
           chips.append(...e.chips.map(chip));
-          li.append(make("span", "verdict", e.verdict_label), chips, make("p", "line", e.line));
-          li.append(button(copy.rebuild, "pizza.rebuild", e.rebuild, "rebuild"));
+          li.append(top, chips, make("p", "line", e.line));
           list.append(li);
         }
         box.append(list);
