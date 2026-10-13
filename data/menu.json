@@ -1,0 +1,31 @@
+{
+  "_about": "The ingredients. Layers are pick-one (a pizza has exactly one of each); toppings are pick-any. A level uses its listed layers, and the first `toppings` toppings in this order. `shape` names the 3D piece the core draws and the icon the page shows; colours are the piece's fill.",
+  "layers": {
+    "crust": {
+      "name": "Crust",
+      "options": [
+        { "name": "Thin crust", "color": "#e8c27a", "shape": "thin" },
+        { "name": "Thick crust", "color": "#d9a85b", "shape": "thick" },
+        { "name": "Stuffed crust", "color": "#f0d49a", "shape": "stuffed" }
+      ]
+    },
+    "sauce": {
+      "name": "Sauce",
+      "options": [
+        { "name": "Tomato sauce", "color": "#d8432f", "shape": "sauce" },
+        { "name": "Pesto", "color": "#5f9e3a", "shape": "sauce" },
+        { "name": "Garlic sauce", "color": "#f4ead2", "shape": "sauce" }
+      ]
+    }
+  },
+  "toppings": [
+    { "name": "Pepperoni", "color": "#b8322a", "shape": "disc" },
+    { "name": "Mushrooms", "color": "#c9b89a", "shape": "dome" },
+    { "name": "Olives", "color": "#2b2b33", "shape": "ring" },
+    { "name": "Peppers", "color": "#3fae4a", "shape": "arc" },
+    { "name": "Pineapple", "color": "#f2cf3b", "shape": "cube" },
+    { "name": "Onions", "color": "#c98bd6", "shape": "hoop" },
+    { "name": "Sausage", "color": "#7a4a2e", "shape": "blob" },
+    { "name": "Anchovies", "color": "#8fa3b5", "shape": "fish" }
+  ]
+}

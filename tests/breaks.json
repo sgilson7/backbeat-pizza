@@ -1,0 +1,86 @@
+[
+  {
+    "name": "a wrong topping makes a miss",
+    "file": "crates/core/src/puzzle.rs",
+    "find": "let wrong = wrong_picks + extra.count_ones() as usize;",
+    "replace": "let wrong = wrong_picks;",
+    "test": "a_wrong_thing_outranks_a_missing_one"
+  },
+  {
+    "name": "named hints name a layer before a topping",
+    "file": "crates/core/src/puzzle.rs",
+    "find": "first_pick.unwrap_or(Item::Topping(extra.trailing_zeros() as u8)),",
+    "replace": "Item::Topping(extra.trailing_zeros() as u8),",
+    "test": "a_named_miss_names_the_first_wrong_layer_before_any_topping"
+  },
+  {
+    "name": "the solver keeps only orders that agree",
+    "file": "crates/core/src/solver.rs",
+    "find": ".filter(|o| history.iter().all(|(p, f)| judge(o, p, clarity) == *f))",
+    "replace": ".filter(|o| history.iter().any(|(p, f)| judge(o, p, clarity) == *f) || history.is_empty())",
+    "test": "hints_rule_out_every_order_that_disagrees"
+  },
+  {
+    "name": "patience covers the solver",
+    "file": "data/levels.json",
+    "find": "\"patience\": 80",
+    "replace": "\"patience\": 59",
+    "test": "the_solver_finishes_every_order_of_every_level_within_its_patience"
+  },
+  {
+    "name": "a serve costs patience",
+    "file": "crates/core/src/game.rs",
+    "find": "play.left -= 1;",
+    "replace": "",
+    "test": "a_serve_costs_one_patience_and_its_hint_shows_only_after_the_riff"
+  },
+  {
+    "name": "a tasting drummer is busy",
+    "file": "crates/core/src/game.rs",
+    "find": "if seat.run.is_some() {\n            return Err(format!(\"{name} is still tasting.\"));",
+    "replace": "if false {\n            return Err(format!(\"{name} is still tasting.\"));",
+    "test": "a_drummer_still_tasting_cannot_be_served_again"
+  },
+  {
+    "name": "the hint waits for the riff",
+    "file": "crates/core/src/game.rs",
+    "find": "if !run.revealed && t >= reveal {",
+    "replace": "if !run.revealed {",
+    "test": "a_serve_costs_one_patience_and_its_hint_shows_only_after_the_riff"
+  },
+  {
+    "name": "running out loses the level",
+    "file": "crates/core/src/game.rs",
+    "find": "(all_fed || play.left == 0)",
+    "replace": "all_fed",
+    "test": "serving_every_order_clears_the_level_and_running_out_loses_it"
+  },
+  {
+    "name": "close hints pick one or many",
+    "file": "crates/core/src/game.rs",
+    "find": "one_or_many(n, \"close_one\", \"close_many\")",
+    "replace": "\"close_many\"",
+    "test": "a_hint_picks_its_list_by_verdict_clarity_and_count_and_fills_it"
+  },
+  {
+    "name": "the camera backs away for a narrow screen",
+    "file": "crates/core/src/game.rs",
+    "find": "let dist = fx::div(band, across).max(int(8) + ONE / 2);",
+    "replace": "let dist = int(8) + ONE / 2 + 0 * fx::div(band, across);",
+    "test": "the_band_fits_across_a_narrow_screen"
+  },
+  {
+    "name": "a fed drummer gets a spotlight",
+    "file": "crates/core/src/scene.rs",
+    "find": "        if fed {\n            let beam",
+    "replace": "        if false {\n            let beam",
+    "test": "a_fed_drummer_stands_in_a_spotlight"
+  },
+  {
+    "name": "a riff row must match the others",
+    "file": "crates/core/src/content.rs",
+    "find": "if *steps.get_or_insert(n) != n {",
+    "replace": "if false {",
+    "test": "a_riff_with_rows_of_different_lengths_or_an_unknown_drum_is_refused"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "_about": "Colours of the stage the core draws. Ingredient, drummer and Maskling colours live in menu.json, band.json and masklings.json.",
+  "sky": "#1d1530",
+  "ink": "#22142e",
+  "light": "#fff1d6",
+  "ambient": "#7a6aa8",
+  "floor": "#a8743f",
+  "wall": "#2c2147",
+  "curtain": "#8e1f3c",
+  "riser": "#3b2f5c",
+  "counter": "#d9d2c3",
+  "counter_top": "#4fb3a9",
+  "chrome": "#c7cdd6",
+  "cymbal": "#e2b84a",
+  "drumhead": "#f3efe4",
+  "bulb": "#ffd36b",
+  "speaker": "#2a2433",
+  "spot": "#fff3b0",
+  "stick": "#e8cf9a"
+}

@@ -1,0 +1,6 @@
+{
+  "_about": "The Masklings' robes, one per Maskling on stage; the mask colour is shared.",
+  "mask": "#f7f3ea",
+  "hole": "#1a1420",
+  "robes": ["#d6323a", "#2f6fd6", "#3aa357", "#e07a2a", "#9b4fd0", "#e04f9a", "#1f9e9e"]
+}

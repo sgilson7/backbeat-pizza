@@ -1,0 +1,51 @@
+{
+  "_about": "What a drummer says after his riff. The core picks the list from the verdict, the level's clarity and the count, then one line from it. {item} is the first wrong thing on the pizza, {count} a number the rule decides.",
+  "perfect": [
+    "Tubular. That pie hits like a double kick on the one. Stoked, little dude.",
+    "Righteous. Every slice sits in the pocket. You nailed my order, compadre.",
+    "Radical. That pizza is pure groove. I'm rocking out till the encore.",
+    "Most excellent. That's the pie I hear in my dreams, man."
+  ],
+  "close_one": [
+    "Gnarly start, little dude. Nothing bogus on there, but it's {count} topping short of a full groove.",
+    "Tasty, man. Everything on it rules. Lay {count} more topping on and we're golden.",
+    "Sweet licks, bro. Keep it all and add {count} more topping."
+  ],
+  "close_many": [
+    "Smooth, bro. Nothing bogus on there, but I'm still waiting on {count} more toppings.",
+    "Solid backbeat, dude. Keep everything, and stack {count} more toppings on top.",
+    "Mellow so far, man. It's {count} toppings shy of my jam."
+  ],
+  "close_vague": [
+    "Groovy so far, dude, but it's thin. My pie needs more.",
+    "No bad notes, man. Some of the band is missing, though.",
+    "Chill vibes, little dude. Keep it all and pile on more of the good stuff.",
+    "Right key, wrong volume, bro. Turn it up with more toppings."
+  ],
+  "miss_named_one": [
+    "Whoa, the {item} is harshing my groove. Lose it, and nothing else on there is bogus.",
+    "Bummer, dude. The {item} is the one sour note on that pie.",
+    "Not feeling the {item}, man. The rest of it isn't wrong."
+  ],
+  "miss_named_many": [
+    "Bummer, dude. {count} things on here are bogus, and the {item} is one of them.",
+    "Wipeout, bro. Start by ditching the {item}. That's {count} wrong things in all.",
+    "Harsh, man. The {item} is off the beat, and so is more. {count} wrong things total."
+  ],
+  "miss_counted_one": [
+    "Harsh, man. {count} thing on this pie is bogus. I'm not saying which.",
+    "Close to the pocket, dude, but {count} thing on there is off the beat.",
+    "Eh, bro. Pull {count} wrong thing off and we'll talk."
+  ],
+  "miss_counted_many": [
+    "Way off the beat, bro. {count} things on here gotta go.",
+    "Gnarly mess, little dude. I count {count} bogus things on that pie.",
+    "Bummer, man. {count} things on there are harshing my groove."
+  ],
+  "miss_vague": [
+    "Bogus, little dude. Something on there is way off the beat.",
+    "Wipeout, man. That pie's got a sour note on it.",
+    "Nope. Somewhere on there is a total buzzkill, bro.",
+    "Harsh vibes, dude. That's not the pie I ordered."
+  ]
+}

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Reference default. connect-src 'self' keeps fetches on this origin;
+       'wasm-unsafe-eval' lets the page compile its own WebAssembly module;
+       form-action 'none' blocks form posts. A meta policy cannot stop data
+       leaving by navigation, so the browser check still watches requests. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; connect-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Backbeat Pizza</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-ready="false" data-mode="loading">
+  <div id="stage">
+    <canvas id="view" aria-hidden="true"></canvas>
+    <div id="bubbles" aria-live="polite"></div>
+    <header id="bar">
+      <span id="bar-title" data-copy="title"></span>
+      <span id="bar-level"></span>
+      <span id="bar-patience"><span data-copy="patience_label"></span> <strong id="patience"></strong></span>
+      <span class="spacer"></span>
+      <button id="sound" type="button"></button>
+      <button id="to-levels" type="button" data-copy="to_levels"></button>
+    </header>
+  </div>
+
+  <main id="play" hidden>
+    <section id="kitchen">
+      <div id="pizza" class="chips"></div>
+      <div id="layers"></div>
+      <h2 data-copy="toppings_heading"></h2>
+      <div id="toppings" class="options"></div>
+      <div id="serve">
+        <button id="clear" type="button" data-copy="clear"></button>
+        <span id="serve-buttons"></span>
+      </div>
+    </section>
+    <section id="log">
+      <h2 data-copy="log_heading"></h2>
+      <div id="log-drummers"></div>
+    </section>
+  </main>
+
+  <section id="title" class="card" hidden>
+    <h1 data-copy="title"></h1>
+    <p data-copy="tagline"></p>
+    <h2 data-copy="how_heading"></h2>
+    <ul id="how"></ul>
+    <h2 data-copy="levels_heading"></h2>
+    <div id="level-list"></div>
+  </section>
+
+  <section id="intro" class="card" hidden>
+    <p id="intro-label" class="label"></p>
+    <h1 id="intro-name"></h1>
+    <ul id="intro-rules"></ul>
+    <button id="start" type="button" class="primary" data-copy="start"></button>
+    <button id="intro-levels" type="button" data-copy="to_levels"></button>
+  </section>
+
+  <section id="won" class="card" hidden>
+    <h1 data-copy="won_heading"></h1>
+    <p id="won-text"></p>
+    <button id="next" type="button" class="primary" data-copy="next"></button>
+    <button id="won-levels" type="button" data-copy="to_levels"></button>
+  </section>
+
+  <section id="lost" class="card" hidden>
+    <h1 data-copy="lost_heading"></h1>
+    <p id="lost-text"></p>
+    <button id="retry" type="button" class="primary" data-copy="retry"></button>
+    <button id="lost-levels" type="button" data-copy="to_levels"></button>
+  </section>
+
+  <section id="finale" class="card" hidden>
+    <h1 data-copy="finale_heading"></h1>
+    <p data-copy="finale_text"></p>
+    <button id="finale-levels" type="button" class="primary" data-copy="to_levels"></button>
+  </section>
+
+  <p id="message" role="status"></p>
+  <footer><span data-copy="build_label"></span> <span id="build"></span></footer>
+  <noscript><p>This page needs JavaScript and WebAssembly.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
